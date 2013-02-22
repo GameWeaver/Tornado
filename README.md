@@ -9,7 +9,9 @@ from the 3D rotation, I then draw the bezier using these points.
 
 You might be asking, why not: Draw the bezier in 2d space, then rotate the layer and
 be done with it? - Well, if you do that, the layer has no-depth and the bezier looks
-flat, doing it this way, the bezier appears to have depth.
+flat, doing it this way, the bezier appears to have depth. You also might be asking
+why I didn't use OpenGL-ES, it's simple, I don't know how to use it, and I wanted to
+play with CoreGraphics :-)
 
 
 Connections:
