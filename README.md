@@ -16,6 +16,7 @@ Overview
 09. [Questions and Answers](https://github.com/Gameweaver/Tornado#questions-and-answers)
 10. [Links](https://github.com/Gameweaver/Tornado#links)
 11. [Things I'd like to know](https://github.com/Gameweaver/Tornado#things-id-like-to-know)
+12. [Things to change](https://github.com/Gameweaver/Tornado#things-to-change)
 
 What is it?
 -----------
@@ -28,7 +29,7 @@ by the OP-1.
 Video
 -----
 
-TODO: I will add a video when I get time.
+Vimeo link: https://vimeo.com/60339682
 
 How the Tornado effect was made
 --------------------------------
@@ -53,7 +54,7 @@ Make sure the App is completely closed and not running, plug in the cable, then
 open the app.
 
 If you get: "Accessory Unavailable: The attached accessory uses too much power", you need
-to restart your iPad, or charge your iPad to 100%. If anyone knows of a cable that
+to restart your iPad, and charge your iPad/OP-1 to 100%. If anyone knows of a cable that
 can charge and use the camera connection kit at the same time, can they let me know?
 
 CoreMidi
@@ -162,3 +163,9 @@ Things I'd like to know
 
 * Can anyone get the Redpark cable working?
 * Is there a cable that can supply power to the iPad/OP-1 with the camera kit connected?
+
+Things to change
+-----------------
+
+* Change code to just use just us CALayers.
+* Change frame rate configuration
