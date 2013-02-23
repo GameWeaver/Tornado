@@ -1,6 +1,6 @@
 # Tornado
 
-### External effect for the OP-1
+### OP-1 Controls an effect on the iPad
 
 Overview
 ---------
@@ -154,8 +154,8 @@ doing it this way, the bezier appears to have depth.
 Links
 -----------
 
-* [xmidi](http://xmidi.com/blog/how-to-access-midi-devices-with-coremidi/)
 * [Come Learn Cocoa with me](http://comelearncocoawithme.blogspot.co.uk/2011/08/reading-from-external-controllers-with.html)
+* [xmidi](http://xmidi.com/blog/how-to-access-midi-devices-with-coremidi/)
 
 Things I'd like to know
 ------------------------
