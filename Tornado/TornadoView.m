@@ -22,18 +22,13 @@
 
 @implementation TornadoView
 
-float wobble_range = 5.0;
-float wobble_speed = 50.0;
 float frame_rate = 45.0;
-float x = 0;
-BOOL dir = FALSE;
 NSMutableArray *swirls;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
 		[self setup];
     }
     return self;
@@ -43,7 +38,6 @@ NSMutableArray *swirls;
 {
 	self = [super initWithCoder:aDecoder];
     if (self) {
-        // Initialization code
 		[self setup];
     }
     return self;
@@ -51,17 +45,54 @@ NSMutableArray *swirls;
 
 - (void)setup
 {
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(blueChanged:) name:@"blueChanged" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(greenChanged:) name:@"greenChanged" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(whiteChanged:) name:@"whiteChanged" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orangeChanged:) name:@"orangeChanged" object:nil];
+	
 	swirls = [[NSMutableArray alloc] init];
-	
-	[self createSwirls:15];
 
-	
 	NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:1.0/frame_rate
 													  target:self
 													selector:@selector(animate)
 													userInfo:nil
 													 repeats:YES];
 	[timer fire];
+}
+
+- (void)blueChanged:(id)sender
+{
+	dispatch_async(dispatch_get_main_queue(), ^{
+		int count = [swirls count];
+		int dial = [[OP1 instance] BlueDial];
+
+		if (dial < count)
+			[self popSwirl];
+		if (dial > count)
+			[self pushSwirl];
+	
+	});
+}
+- (void)greenChanged:(id)sender
+{
+	dispatch_async(dispatch_get_main_queue(), ^{
+		for (SwirlView *view in swirls)
+		{
+			view.Wobble_range = [OP1 instance].GreenDial;
+		}
+	});
+}
+- (void)whiteChanged:(id)sender
+{
+	dispatch_async(dispatch_get_main_queue(), ^{
+		for (SwirlView *view in swirls)
+		{
+			view.Wobble_speed = [OP1 instance].WhiteDial;
+		}
+	});
+}
+- (void)orangeChanged:(id)sender
+{
 	
 }
 
@@ -70,35 +101,64 @@ NSMutableArray *swirls;
 	return min + arc4random() % (max - min);
 }
 
-- (void)createSwirls:(int)n
+- (void)pushSwirl
 {
-	float square = 100;
+	int count = [swirls count];
+	
+	//Set a hard limit of swirls
+	if (count > kBLUE_MAX)
+		return;
+	
+	float square = 5;
 	float y = 0;
 	float x = 0;
+	float x_offset = 50.0;
 	
-	for (int i = 0; i < n; i++)
+	
+	y = count * 15;
+	square = count * 5;
+	x = (100-square)/2;
+	
+	SwirlView *s = [[SwirlView alloc] initWithFrame:CGRectMake(x+x_offset, y, square, square)];
+	s.AngleIncrement = [self between:5 max:16];
+	s.Wobble_range = 0.0;
+	s.Wobble_speed = 0.0;
+	s.Frame_rate = frame_rate;
+	s.X = 0;
+	[self addSubview:s];
+	[swirls insertObject:s atIndex:0];
+	[s release];
+	
+	int ptr = 15;
+	for (SwirlView *v in swirls)
 	{
-		y = i * 15;
-		
-		//cone shape
-		square = square - 6;
-		x = (100-square)/2;
-
-		SwirlView *s = [[SwirlView alloc] initWithFrame:CGRectMake(x, y, square, square)];
-		s.AngleIncrement = [self between:5 max:16];
-		//s.AngleIncrement = 8.2;
-		//s.Wobble_range = [self between:2 max:8];
-		//s.Wobble_speed = [self between:20 max:50];
-		s.Wobble_range = 0.0;
-		s.Wobble_speed = 0.0;
-		s.Frame_rate = frame_rate;
-		s.X = 0;
-		[self addSubview:s];
-		[swirls addObject:s];
-		[s release];
+		CGRect frame = v.frame;
+		frame.origin.y = ptr;
+		v.frame = frame;
+		ptr += 15;
 	}
 }
 
+- (void)popSwirl
+{
+	int count = [swirls count];
+	if (count > 0)
+	{
+		SwirlView *view = [swirls objectAtIndex:0];
+		[view removeFromSuperview];
+		[swirls removeObjectAtIndex:0];
+	}
+	int ptr = 15;
+	for (SwirlView *v in swirls)
+	{
+		CGRect frame = v.frame;
+		frame.origin.y = ptr;
+		v.frame = frame;
+		ptr += 15;
+	}
+}
+
+//This is probably excessive.
 - (void)animate
 {
 	for (SwirlView *view in swirls)
@@ -107,8 +167,6 @@ NSMutableArray *swirls;
 	}
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
@@ -116,24 +174,20 @@ NSMutableArray *swirls;
 	CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
     CGContextSetAlpha(context, 1.0);
     CGContextFillRect(context, self.bounds);
-
-	//CGContextRestoreGState(context);
 }
 
-
+// Used for debugging, tapping the screen can change the Tornado
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	
-	//UITouch *touch = [[event touchesForView:self] anyObject];
-	//CGPoint location = [touch locationInView:touch.view];
+	UITouch *touch = [[event touchesForView:self] anyObject];
+	CGPoint location = [touch locationInView:touch.view];
 	
-	for (SwirlView *view in swirls)
+	if (location.x > 400)
 	{
-		CGRect frame = view.frame;
-		frame.size.width += 5.0;
-		frame.size.height += 5.0;
-		view.frame = frame;
+		[self pushSwirl];
+	} else {
+		[self popSwirl];
 	}
-	
 }
 
 @end

@@ -18,7 +18,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OP1.h"
 
 @interface TornadoView : UIView
+
+- (void)setup;
+- (void)blueChanged:(id)sender;
+- (void)greenChanged:(id)sender;
+- (void)whiteChanged:(id)sender;
+- (void)orangeChanged:(id)sender;
+- (float)between:(int)min max:(int)max;
+- (void)pushSwirl;
+- (void)popSwirl;
+- (void)animate;
 
 @end

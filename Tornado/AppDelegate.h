@@ -18,16 +18,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ExternalAccessory/ExternalAccessory.h>
 
 @class ViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, NSStreamDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
 @property (strong, nonatomic) ViewController *viewController;
-
-@property (strong, atomic) EASession *session;
 
 @end

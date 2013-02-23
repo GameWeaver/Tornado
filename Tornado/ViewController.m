@@ -28,22 +28,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-	
-	NSLog(@"chris - init");
-	
-	lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 400, 200, 50)];
-	lbl.backgroundColor = [UIColor blueColor];
-	lbl.text = @"DEBUG: XXX";
-	[self.view addSubview:lbl];
+	[[OP1 instance] start];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-
 
 @end

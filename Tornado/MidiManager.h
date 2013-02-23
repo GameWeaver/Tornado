@@ -10,17 +10,31 @@
 //  License for the specific language governing permissions and limitations under
 //  the License.
 //
-//  ViewController.h
+//  MidiManager.h
 //  Tornado
 //
-//  Created by Chris Davis on 17/02/2013.
+//  Created by Chris Davis on 23/02/2013.
 //  Copyright (c) 2013 GameWeaver Ltd. All rights reserved.
-//
+//  Also, thanks to The Mgmt from:
+//  http://comelearncocoawithme.blogspot.co.uk/2011/08/reading-from-external-controllers-with.html
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <CoreMIDI/CoreMIDI.h>
 #import "OP1.h"
 
-@interface ViewController : UIViewController
+#define SYSEX_LENGTH 1024
+
+@interface MidiManager : NSObject
 {
+	MIDIClientRef midiClient;
+	MIDIPortRef inputPort;
 }
+
++ (MidiManager *)instance;
++ (id)alloc;
+- (id)init;
+- (void)createMidiSessionWithUniqueId:(SInt32)uniqueId;
+NSString *getDisplayName(MIDIObjectRef object);
+static void midiInputCallback (const MIDIPacketList *list, void *procRef, void *srcRef);
+
 @end

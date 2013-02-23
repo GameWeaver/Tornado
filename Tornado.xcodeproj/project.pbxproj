@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		67B4073016D815A900A6DE26 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4072F16D815A900A6DE26 /* CoreMIDI.framework */; };
+		67DB86BE16D915DB00268157 /* MidiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DB86BD16D915DB00268157 /* MidiManager.m */; };
+		67DB86C116D9193400268157 /* OP1.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DB86C016D9193300268157 /* OP1.m */; };
 		67F0015916D7C2FA003831F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0015816D7C2FA003831F7 /* UIKit.framework */; };
 		67F0015B16D7C2FA003831F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0015A16D7C2FA003831F7 /* Foundation.framework */; };
 		67F0015D16D7C2FA003831F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0015C16D7C2FA003831F7 /* CoreGraphics.framework */; };
@@ -27,6 +29,10 @@
 
 /* Begin PBXFileReference section */
 		67B4072F16D815A900A6DE26 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		67DB86BC16D915DB00268157 /* MidiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiManager.h; sourceTree = "<group>"; };
+		67DB86BD16D915DB00268157 /* MidiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiManager.m; sourceTree = "<group>"; };
+		67DB86BF16D9193300268157 /* OP1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OP1.h; sourceTree = "<group>"; };
+		67DB86C016D9193300268157 /* OP1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OP1.m; sourceTree = "<group>"; };
 		67F0015416D7C2FA003831F7 /* Tornado.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tornado.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F0015816D7C2FA003831F7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		67F0015A16D7C2FA003831F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -101,6 +107,10 @@
 		67F0015E16D7C2FA003831F7 /* Tornado */ = {
 			isa = PBXGroup;
 			children = (
+				67DB86BF16D9193300268157 /* OP1.h */,
+				67DB86C016D9193300268157 /* OP1.m */,
+				67DB86BC16D915DB00268157 /* MidiManager.h */,
+				67DB86BD16D915DB00268157 /* MidiManager.m */,
 				67F0018316D7C39D003831F7 /* SwirlView.h */,
 				67F0018416D7C39D003831F7 /* SwirlView.m */,
 				67F0018516D7C39D003831F7 /* TornadoView.h */,
@@ -200,6 +210,8 @@
 				67F0017216D7C2FA003831F7 /* ViewController.m in Sources */,
 				67F0018716D7C39D003831F7 /* SwirlView.m in Sources */,
 				67F0018816D7C39D003831F7 /* TornadoView.m in Sources */,
+				67DB86BE16D915DB00268157 /* MidiManager.m in Sources */,
+				67DB86C116D9193400268157 /* OP1.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
