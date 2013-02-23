@@ -23,34 +23,34 @@
 #define kDIAL_MIN 0
 #define kDIAL_MAX 40
 
-#define kBLUE_MIN 0
-#define kBLUE_MAX 20
-#define kGREEN_MIN 0
-#define kGREEN_MAX 20
-#define kWHITE_MIN 0
-#define kWHITE_MAX 20
-#define kORANGE_MIN 0
-#define kORANGE_MAX 20
+#define kBLUE_MIN 0.0
+#define kBLUE_MAX 20.0
+#define kGREEN_MIN 0.0
+#define kGREEN_MAX 5.0
+#define kWHITE_MIN 0.0
+#define kWHITE_MAX 5.0
+#define kORANGE_MIN 0.0
+#define kORANGE_MAX 5.0
 
 @interface OP1 : NSObject
 {
-	int m_BlueDialPrevious;
+	float m_BlueDialPrevious;
 	float m_GreenDialPrevious;
 	float m_WhiteDialPrevious;
 	float m_OrangeDialPrevious;
 	
-	int m_BlueDial;
+	float m_BlueDial;
 	float m_GreenDial;
 	float m_WhiteDial;
 	float m_OrangeDial;
 }
 
-@property (assign) int BlueDialPrevious;
+@property (assign) float BlueDialPrevious;
 @property (assign) float GreenDialPrevious;
 @property (assign) float WhiteDialPrevious;
 @property (assign) float OrangeDialPrevious;
 
-@property (assign) int BlueDial;
+@property (assign) float BlueDial;
 @property (assign) float GreenDial;
 @property (assign) float WhiteDial;
 @property (assign) float OrangeDial;
@@ -61,6 +61,6 @@
 - (void)start;
 - (void)reset;
 - (void)onChange:(int)control value:(int)value;
-- (void)DefaultInputs:(int)value dialValue:(int *)dial dialPrevious:(int *)previous min:(int)min max:(int)max;
+- (void)DefaultInputs:(int)value dialValue:(float *)dial dialPrevious:(float *)previous min:(float)min max:(float)max;
 
 @end

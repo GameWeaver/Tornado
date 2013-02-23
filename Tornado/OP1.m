@@ -119,7 +119,7 @@ static OP1* _sharedMySingleton = nil;
 // set to 0 when the app launches, and I didn't want to write
 // the 'write' midi stream. So instead I'm just taking the value,
 // zero-ing it, then adding or taking away depending.
-- (void)DefaultInputs:(int)value dialValue:(int *)dial dialPrevious:(int *)previous min:(int)min max:(int)max
+- (void)DefaultInputs:(int)value dialValue:(float *)dial dialPrevious:(float *)previous min:(float)min max:(float)max
 {
 	BOOL processed = FALSE;
 	if (*previous == -1)
