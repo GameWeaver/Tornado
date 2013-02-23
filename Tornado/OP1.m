@@ -82,10 +82,10 @@ static OP1* _sharedMySingleton = nil;
 	self.WhiteDialPrevious = -1;
 	self.OrangeDialPrevious = -1;
 	
-	self.BlueDial = 0;
-	self.GreenDial = 0;
-	self.WhiteDial = 0;
-	self.OrangeDial = 0;
+	self.BlueDial = kBLUE_MIN;
+	self.GreenDial = kGREEN_MIN;
+	self.WhiteDial = kWHITE_MIN;
+	self.OrangeDial = kORANGE_MIN;
 }
 
 
@@ -124,7 +124,7 @@ static OP1* _sharedMySingleton = nil;
 	BOOL processed = FALSE;
 	if (*previous == -1)
 	{
-		*dial = 0;
+		*dial = min;
 		processed = TRUE;
 	}
 	

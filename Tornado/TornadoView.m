@@ -121,8 +121,8 @@ NSMutableArray *swirls;
 	
 	SwirlView *s = [[SwirlView alloc] initWithFrame:CGRectMake(x+x_offset, y, square, square)];
 	s.AngleIncrement = [self between:5 max:16];
-	s.Wobble_range = 0.0;
-	s.Wobble_speed = 0.0;
+	s.Wobble_range = kGREEN_MIN;
+	s.Wobble_speed = kWHITE_MIN;
 	s.Frame_rate = frame_rate;
 	s.X = 0;
 	[self addSubview:s];

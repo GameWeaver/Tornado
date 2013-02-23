@@ -44,7 +44,7 @@ CATransform3D t;
 		//t = CATransform3DMakeRotation(radians(70.0f), 1.0, 0.0, 0.0);
 		
 		self.AngleIncrement = 1.0;
-		//self.R = 0.0;
+		self.X = 0;
 		
 		//Seed r with a random value so we don't have the same rotation
 		//for each swirl
@@ -83,36 +83,40 @@ CATransform3D t;
 		 [UIView commitAnimations];*/
 		
 		/*NSTimer* timer = [NSTimer scheduledTimerWithTimeInterval:1.0/60
-														  target:self
-														selector:@selector(rotate)
-														userInfo:nil
-														 repeats:YES];
-		[timer fire];*/
+		 target:self
+		 selector:@selector(rotate)
+		 userInfo:nil
+		 repeats:YES];
+		 [timer fire];*/
 		
     }
     return self;
 }
 
 /*- (void)rotate {
-	[self setNeedsDisplay];
-	self.R += 1.0;
-	if (self.R >= 360)
-		self.R = 0;
-}*/
+ [self setNeedsDisplay];
+ self.R += 1.0;
+ if (self.R >= 360)
+ self.R = 0;
+ }*/
 
 - (void)drawRect:(CGRect)rect
 {
-	if (self.Wobble_range != 0)
-	{
-	float amt = self.Frame_rate/self.Wobble_speed;
+	
+	float w_speed = self.Wobble_speed;
+	float w_range = self.Wobble_range;
+	
+	NSLog(@"wobble");
+	float amt = w_speed;
+	NSLog(@"amt: %f", amt);
 	if (self.Dir == FALSE)
 	{
 		self.X += amt;
-		if (self.X >= self.Wobble_range)
+		if (self.X >= w_range)
 			self.Dir = TRUE;
 	} else {
 		self.X -= amt;
-		if (self.X <= -self.Wobble_range)
+		if (self.X <= -w_range)
 			self.Dir = FALSE;
 	}
 	
@@ -120,7 +124,7 @@ CATransform3D t;
 	CGRect f = self.frame;
 	f.origin.x += self.X;
 	self.frame = f;
-	}
+	
 	
 	
 	self.R += self.AngleIncrement;
@@ -131,9 +135,9 @@ CATransform3D t;
 	
 	
 	/*CGContextBeginPath(context);
-	CGContextSetFillColorWithColor(context, [UIColor blueColor].CGColor);
-    CGContextSetAlpha(context, 1.0);
-    CGContextFillRect(context, self.bounds);*/
+	 CGContextSetFillColorWithColor(context, [UIColor blueColor].CGColor);
+	 CGContextSetAlpha(context, 1.0);
+	 CGContextFillRect(context, self.bounds);*/
 	
 	
 	//// Color Declarations
@@ -158,27 +162,27 @@ CATransform3D t;
 	transform = CATransform3DRotate(transform,radians(self.R),0,0,1 );
 	transform = CATransform3DTranslate(transform, -width/2, -height/2, 0);
 	
-
+	
 	CGAffineTransform affineTransform = CATransform3DGetAffineTransform(transform);
 	
 	
 	/*
 	 1
-	CGPoint dmove = CGPointApplyAffineTransform(move, affineTransform);
-	CGPoint dcurve = CGPointApplyAffineTransform(curve, affineTransform);
-	CGPoint dcontrolA = CGPointApplyAffineTransform(controlA, affineTransform);
-	CGPoint dcontrolB = CGPointApplyAffineTransform(controlB, affineTransform);
-
-	
-	//// Bezier 2 Drawing
-	UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
-	[bezier2Path moveToPoint:dmove];
-	[bezier2Path addCurveToPoint:dcurve controlPoint1:dcontrolA controlPoint2:dcontrolB];
-	CGContextSaveGState(context);
-	CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
-	[strokeColor setStroke];
-	bezier2Path.lineWidth = 2.5;
-	[bezier2Path stroke];*/
+	 CGPoint dmove = CGPointApplyAffineTransform(move, affineTransform);
+	 CGPoint dcurve = CGPointApplyAffineTransform(curve, affineTransform);
+	 CGPoint dcontrolA = CGPointApplyAffineTransform(controlA, affineTransform);
+	 CGPoint dcontrolB = CGPointApplyAffineTransform(controlB, affineTransform);
+	 
+	 
+	 //// Bezier 2 Drawing
+	 UIBezierPath* bezier2Path = [UIBezierPath bezierPath];
+	 [bezier2Path moveToPoint:dmove];
+	 [bezier2Path addCurveToPoint:dcurve controlPoint1:dcontrolA controlPoint2:dcontrolB];
+	 CGContextSaveGState(context);
+	 CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor);
+	 [strokeColor setStroke];
+	 bezier2Path.lineWidth = 2.5;
+	 [bezier2Path stroke];*/
 	
 	
 	// 2
@@ -204,7 +208,7 @@ CATransform3D t;
 	[strokeColor setStroke];
 	bezier3Path.lineWidth = 2.5;
 	[bezier3Path stroke];
-
+	
 	
 }
 

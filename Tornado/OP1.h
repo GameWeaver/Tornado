@@ -25,11 +25,11 @@
 
 #define kBLUE_MIN 0.0
 #define kBLUE_MAX 20.0
-#define kGREEN_MIN 0.0
-#define kGREEN_MAX 5.0
-#define kWHITE_MIN 0.0
+#define kGREEN_MIN 0.1
+#define kGREEN_MAX 20.0
+#define kWHITE_MIN 0.1
 #define kWHITE_MAX 5.0
-#define kORANGE_MIN 0.0
+#define kORANGE_MIN 0.1
 #define kORANGE_MAX 5.0
 
 @interface OP1 : NSObject
