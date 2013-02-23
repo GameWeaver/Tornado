@@ -15,6 +15,7 @@ Overview
 08. [Optional Requirements](https://github.com/Gameweaver/Tornado#optional-requirements)
 09. [Questions and Answers](https://github.com/Gameweaver/Tornado#questions-and-answers)
 10. [Links](https://github.com/Gameweaver/Tornado#links)
+11. [Things I'd like to know](https://github.com/Gameweaver/Tornado#things-id-like-to-know)
 
 What is it?
 -----------
@@ -142,9 +143,11 @@ Questions and Answers
 ----------------------
 
 **Why didn't you use OpenGL ES?**
+
 I don't know how to use it, and I wanted to play with CoreGraphics :-)
 
 **Why not draw the bezier in 2d space, then rotate the layer and be done with it?**
+
 Well, if you do that, the layer has no-depth and the bezier looks flat, 
 doing it this way, the bezier appears to have depth. 
 
@@ -154,3 +157,8 @@ Links
 * [xmidi](http://xmidi.com/blog/how-to-access-midi-devices-with-coremidi/)
 * [Come Learn Cocoa with me](http://comelearncocoawithme.blogspot.co.uk/2011/08/reading-from-external-controllers-with.html)
 
+Things I'd like to know
+------------------------
+
+* Can anyone get the Redpark cable working?
+* Is there a cable that can supply power to the iPad/OP-1 with the camera kit connected?
