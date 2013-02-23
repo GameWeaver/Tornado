@@ -93,19 +93,19 @@ static OP1* _sharedMySingleton = nil;
 {
 	switch (control) {
 		case 1: //Blue
-			[self DefaultInputs:value dialValue:&m_BlueDial dialPrevious:&m_BlueDialPrevious min:kBLUE_MIN max:kBLUE_MAX];
+			[self DefaultInputs:value dialValue:&m_BlueDial dialPrevious:&m_BlueDialPrevious min:kBLUE_MIN max:kBLUE_MAX increment:1.0];
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"blueChanged" object:self];
 			break;
 		case 2: //Green
-			[self DefaultInputs:value dialValue:&m_GreenDial dialPrevious:&m_GreenDialPrevious min:kGREEN_MIN max:kGREEN_MAX];
+			[self DefaultInputs:value dialValue:&m_GreenDial dialPrevious:&m_GreenDialPrevious min:kGREEN_MIN max:kGREEN_MAX increment:0.2];
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"greenChanged" object:self];
 			break;
 		case 3: //White
-			[self DefaultInputs:value dialValue:&m_WhiteDial dialPrevious:&m_WhiteDialPrevious min:kWHITE_MIN max:kWHITE_MAX];
+			[self DefaultInputs:value dialValue:&m_WhiteDial dialPrevious:&m_WhiteDialPrevious min:kWHITE_MIN max:kWHITE_MAX increment:0.2];
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"whiteChanged" object:self];
 			break;
 		case 4: //Orange
-			[self DefaultInputs:value dialValue:&m_OrangeDial dialPrevious:&m_OrangeDialPrevious min:kORANGE_MIN max:kORANGE_MAX];
+			[self DefaultInputs:value dialValue:&m_OrangeDial dialPrevious:&m_OrangeDialPrevious min:kORANGE_MIN max:kORANGE_MAX increment:0.5];
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"orangeChanged" object:self];
 			break;
 		default:
@@ -119,7 +119,7 @@ static OP1* _sharedMySingleton = nil;
 // set to 0 when the app launches, and I didn't want to write
 // the 'write' midi stream. So instead I'm just taking the value,
 // zero-ing it, then adding or taking away depending.
-- (void)DefaultInputs:(int)value dialValue:(float *)dial dialPrevious:(float *)previous min:(float)min max:(float)max
+- (void)DefaultInputs:(int)value dialValue:(float *)dial dialPrevious:(float *)previous min:(float)min max:(float)max increment:(float)increment
 {
 	BOOL processed = FALSE;
 	if (*previous == -1)
@@ -131,13 +131,13 @@ static OP1* _sharedMySingleton = nil;
 	if (value < *previous || value == kDIAL_MIN)
 	{
 		if (*dial > min && processed == FALSE)
-			(*dial)--;
+			(*dial) -= increment;
 	}
 	
 	if (value > *previous || value == kDIAL_MAX)
 	{
 		if (*dial < max && processed == FALSE)
-			(*dial)++;
+			(*dial) += increment;
 	}
 	
 	*previous = value;

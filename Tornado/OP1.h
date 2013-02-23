@@ -61,6 +61,6 @@
 - (void)start;
 - (void)reset;
 - (void)onChange:(int)control value:(int)value;
-- (void)DefaultInputs:(int)value dialValue:(float *)dial dialPrevious:(float *)previous min:(float)min max:(float)max;
+- (void)DefaultInputs:(int)value dialValue:(float *)dial dialPrevious:(float *)previous min:(float)min max:(float)max increment:(float)increment;
 
 @end
