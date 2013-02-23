@@ -20,5 +20,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-
+{
+	UILabel *lbl;
+}
 @end

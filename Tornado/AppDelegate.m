@@ -18,13 +18,15 @@
 //
 
 #import "AppDelegate.h"
-
 #import "ViewController.h"
-
+#import <CoreMIDI/MIDINetworkSession.h>
+#import <CoreMIDI/CoreMIDI.h>
 
 @implementation AppDelegate
 
 @synthesize session;
+MIDIClientRef midiClient;
+MIDIPortRef inputPort;
 
 - (void)dealloc
 {
@@ -36,9 +38,67 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
-	[[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
+	NSLog(@"Iterate through destinations");
+	ItemCount destCount = MIDIGetNumberOfDestinations();
+	for (ItemCount i = 0 ; i < destCount ; ++i) {
+		
+		// Grab a reference to a destination endpoint
+		MIDIEndpointRef dest = MIDIGetDestination(i);
+		if (dest != NULL) {
+			NSLog(@"  Destination: %@", getDisplayName(dest));
+		}
+	}
+	
+	NSLog(@"Iterate through sources");
+	// Virtual sources and destinations don't have entities
+	ItemCount sourceCount = MIDIGetNumberOfSources();
+	for (ItemCount i = 0 ; i < sourceCount ; ++i) {
+		
+		MIDIEndpointRef source = MIDIGetSource(i);
+		if (source != NULL) {
+			NSLog(@"  Source: %@", getDisplayName(source));
+		}
+	}
+	
+	ItemCount numOfDevices = MIDIGetNumberOfDevices();
+    
+	for (int i = 0; i < numOfDevices; i++) {
+		MIDIDeviceRef midiDevice = MIDIGetDevice(i);
+		NSDictionary *midiProperties;
+        
+		MIDIObjectGetProperties(midiDevice, (CFPropertyListRef *)&midiProperties, YES);
+		NSLog(@"Midi properties: %d \n %@", i, midiProperties);
+	}
+	
+	
+	OSStatus result;
+    
+	result = MIDIClientCreate(CFSTR("MIDI client"), NULL, NULL, &midiClient);
+	if (result != noErr) {
+        return NO;
+	}
+
+	result = MIDIInputPortCreate(midiClient, CFSTR("Input"), midiInputCallback, NULL, &inputPort);
+	
+	
+	
+	MIDIObjectRef endPoint;
+	MIDIObjectType foundObj;
+    
+	result = MIDIObjectFindByUniqueID(1322036174, &endPoint, &foundObj);
+	
+	result = MIDIPortConnectSource(inputPort, endPoint, NULL);
+	
+	//CFRunLoopRun();
+	
+	NSLog(@"after run loop");
+	
+	
+	
+	//[self scanExistingDevices];
+	//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidConnect:) name:EAAccessoryDidConnectNotification object:nil];
+	//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_accessoryDidDisconnect:) name:EAAccessoryDidDisconnectNotification object:nil];
+	//[[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
 	
 	
 	
@@ -54,85 +114,78 @@
 {
 	NSMutableArray *_accessoryList = [[NSMutableArray alloc] initWithArray:[[EAAccessoryManager sharedAccessoryManager] connectedAccessories]];
 	EAAccessory *accessory = nil;
+	NSString *protocol = @"com.redpark.hobdb9";
 	for(EAAccessory *obj in _accessoryList)
     {
-        /*if ([[obj protocolStrings] containsObject:@"com.bluebamboo.p25i"])//if find the accessory(p25) record it
+        if ([[obj protocolStrings] containsObject:protocol])//if find the accessory(p25) record it
         {
             //[accessoryLabel setText:@"P25mi connected"]; // yup this is correct accessory!
 			accessory = obj;
-            [obj release];
+            //[obj release];
             break;
-        }*/
-		[self popup:obj.name];
-		for (NSString *s in [obj protocolStrings])
-		{
-			[self popup:s];
-		}
-		
-		//[obj protocolStrings]
-		
+        }
     }
 	
 	//if accessory not null
 	if(accessory != nil)
 	{
-		session = [[EASession alloc] initWithAccessory:accessory forProtocol:@"com.bluebamboo.p25i"];//initial session that pair with protocol string
+		//[self popup:@"found"];
+		session = [[EASession alloc] initWithAccessory:accessory forProtocol:protocol];//initial session that pair with protocol string
 		[[session outputStream] setDelegate:self];//set delegate class for output stream
 		[[session outputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode]; //set outputstream loop
 		[[session outputStream] open]; //open session
 		[[session inputStream] setDelegate:self];
-		[[session inputStream] open];
 		[[session inputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-		
-		
+		[[session inputStream] open];
 	}
 }
 
 -(void)_accessoryDidConnect:(id)sender
 {
-	[self popup:@"connected"];
+	//[self popup:@"connected"];
 	[self find];
 }
 -(void)_accessoryDidDisconnect:(id)sender
 {
-	[self popup:@"disconnected"];
+	NSLog(@"davis - disconnected");
 }
 
 //this is a stream listener function that would actived by system while steam has any event
 - (void)stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent
 {
 	
-	
+	//[self popup:[theStream debugDescription]];
 	
     switch(streamEvent)
     {
         case NSStreamEventOpenCompleted:
             if(theStream==[session outputStream])//to identify which stream has been opend
             {
-               
+				NSLog(@"davis - NSStreamEventOpenCompleted out");
             }
             else
             {
-                
+                NSLog(@"davis - NSStreamEventOpenCompleted in");
             }
 			
 			
             break;
         case NSStreamEventHasBytesAvailable:
             //if system has stream data comes in
-            
+            NSLog(@"davis - NSStreamEventHasBytesAvailable");
 			
             break;
         case NSStreamEventHasSpaceAvailable:
 			
-            
+            NSLog(@"davis - NSStreamEventHasSpaceAvailable");
 			
 			
             break;
         case NSStreamEventErrorOccurred:
+			NSLog(@"davis - NSStreamEventErrorOccurred");
             break;
         default:
-			
+			NSLog(@"davis - other");
             break;
     }
 }
@@ -140,13 +193,35 @@
 - (void)popup:(NSString *)message
 {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-															message:message
-														   delegate:self
-												  cancelButtonTitle:@"ok"
-												  otherButtonTitles:nil];
+													message:message
+												   delegate:self
+										  cancelButtonTitle:@"ok"
+										  otherButtonTitles:nil];
 	[alert show];
 	[alert release];
 }
+
+
+NSString *getDisplayName(MIDIObjectRef object)
+{
+	// Returns the display name of a given MIDIObjectRef as an NSString
+	CFStringRef name = nil;
+	if (noErr != MIDIObjectGetStringProperty(object, kMIDIPropertyDisplayName, &name))
+		return nil;
+	return (NSString *)name;
+}
+
+
+static void
+midiInputCallback (const MIDIPacketList *list,
+                   void *procRef,
+                   void *srcRef)
+{
+    NSLog(@"midiInputCallback was called");
+}
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

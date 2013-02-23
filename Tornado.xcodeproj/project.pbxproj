@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67B4073016D815A900A6DE26 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B4072F16D815A900A6DE26 /* CoreMIDI.framework */; };
 		67F0015916D7C2FA003831F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0015816D7C2FA003831F7 /* UIKit.framework */; };
 		67F0015B16D7C2FA003831F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0015A16D7C2FA003831F7 /* Foundation.framework */; };
 		67F0015D16D7C2FA003831F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F0015C16D7C2FA003831F7 /* CoreGraphics.framework */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		67B4072F16D815A900A6DE26 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		67F0015416D7C2FA003831F7 /* Tornado.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tornado.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F0015816D7C2FA003831F7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		67F0015A16D7C2FA003831F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -54,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67B4073016D815A900A6DE26 /* CoreMIDI.framework in Frameworks */,
 				67F0018216D7C341003831F7 /* ExternalAccessory.framework in Frameworks */,
 				67F0018016D7C33B003831F7 /* QuartzCore.framework in Frameworks */,
 				67F0015916D7C2FA003831F7 /* UIKit.framework in Frameworks */,
@@ -85,6 +88,7 @@
 		67F0015716D7C2FA003831F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67B4072F16D815A900A6DE26 /* CoreMIDI.framework */,
 				67F0018116D7C341003831F7 /* ExternalAccessory.framework */,
 				67F0017F16D7C33B003831F7 /* QuartzCore.framework */,
 				67F0015816D7C2FA003831F7 /* UIKit.framework */,
@@ -274,8 +278,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tornado/Tornado-Prefix.pch";
 				INFOPLIST_FILE = "Tornado/Tornado-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Tornado/Redpark\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -286,8 +296,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tornado/Tornado-Prefix.pch";
 				INFOPLIST_FILE = "Tornado/Tornado-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Tornado/Redpark\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -311,6 +327,7 @@
 				67F0017A16D7C2FA003831F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

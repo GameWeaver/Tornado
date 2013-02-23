@@ -28,7 +28,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+	
+	NSLog(@"chris - init");
+	
+	lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 400, 200, 50)];
+	lbl.backgroundColor = [UIColor blueColor];
+	lbl.text = @"DEBUG: XXX";
+	[self.view addSubview:lbl];
 }
 
 - (void)didReceiveMemoryWarning
