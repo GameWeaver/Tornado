@@ -287,6 +287,7 @@
 		67F0017916D7C2FA003831F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tornado/Tornado-Prefix.pch";
 				INFOPLIST_FILE = "Tornado/Tornado-Info.plist";
@@ -305,6 +306,7 @@
 		67F0017A16D7C2FA003831F7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tornado/Tornado-Prefix.pch";
 				INFOPLIST_FILE = "Tornado/Tornado-Info.plist";

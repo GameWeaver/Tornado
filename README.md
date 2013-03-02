@@ -42,10 +42,10 @@ from the 3D rotation, I then draw the bezier using these points.
 Running the code
 -----------------
 
-Change the following line in the code:
+This line of code searches for and connects to the OP-1
 
 ```objective-c
-[[MidiManager instance] createMidiSessionWithUniqueId:1322036174];
+[[MidiManager instance] findAndCreateOP1];
 ```
 
 Turn on your OP-1 and go into MIDI mode Shift+Com->Option 2(CTRL)
@@ -62,42 +62,7 @@ CoreMidi
 
 **OP-1 Settings - from CoreMidi**
 
-Your settings will vary, but you need to take the uniqueID from the
-sources section, and put that into your code, so that it will connect
-correctly.
-
-```json
-{
-	    SerialNumber = MY_SERIAL_NUMBER;
-	    USBLocationID = 17825792;
-	    USBVendorProduct = 593952772;
-	    driver = "com.apple.AppleMIDIUSBDriver";
-	    entities =     (
-	                {
-	            destinations =             (
-	                                {
-	                    uniqueID = 1154527813;
-	                }
-	            );
-	            embedded = 0;
-	            maxSysExSpeed = 3125; //If you add a 0 to this, it equals midi baud rate.
-	            name = "OP-1 Midi Device";
-	            sources =             (
-	                                {
-	                    uniqueID = 1322036174; //This is the ID you need to put into the code.
-	                }
-	            );
-	            uniqueID = "-1837032176";
-	        }
-	    );
-	    image = "/Library/Audio/MIDI Devices/Generic/Images/USBInterface.tiff";
-	    manufacturer = "Teenage Engineering AB";
-	    model = "OP-1 Midi Device";
-	    name = "OP-1 Midi Device";
-	    offline = 0;
-	    uniqueID = "-1037462185";
-	}
-```
+I've changed the code so that now it will pick up the OP-1 device automatically
 
 Communications
 --------------

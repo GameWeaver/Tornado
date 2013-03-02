@@ -33,7 +33,7 @@
 + (MidiManager *)instance;
 + (id)alloc;
 - (id)init;
-- (void)createMidiSessionWithUniqueId:(SInt32)uniqueId;
+- (void)findAndCreateOP1;
 NSString *getDisplayName(MIDIObjectRef object);
 static void midiInputCallback (const MIDIPacketList *list, void *procRef, void *srcRef);
 

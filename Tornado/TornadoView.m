@@ -127,7 +127,6 @@ NSMutableArray *swirls;
 	s.X = 0;
 	[self addSubview:s];
 	[swirls insertObject:s atIndex:0];
-	[s release];
 	
 	int ptr = 15;
 	for (SwirlView *v in swirls)

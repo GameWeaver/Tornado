@@ -60,8 +60,12 @@ static MidiManager* _sharedMySingleton = nil;
 	return self;
 }
 
-- (void)createMidiSessionWithUniqueId:(SInt32)uniqueId
+- (void)findAndCreateOP1
 {
+	SInt32 uniqueId = -1;
+	NSString *modelToMatch = @"OP-1 Midi Device";
+	//CFStringRef	modelToMatch = CFSTR("OP-1 Midi Device");
+	
 	NSLog(@"Iterate through destinations");
 	ItemCount destCount = MIDIGetNumberOfDestinations();
 	for (ItemCount i = 0 ; i < destCount ; ++i) {
@@ -90,8 +94,32 @@ static MidiManager* _sharedMySingleton = nil;
 		MIDIDeviceRef midiDevice = MIDIGetDevice(i);
 		NSDictionary *midiProperties;
         
-		MIDIObjectGetProperties(midiDevice, (CFPropertyListRef *)&midiProperties, YES);
+		MIDIObjectGetProperties(midiDevice, (CFPropertyListRef)&midiProperties, YES);
 		NSLog(@"Midi properties: %d \n %@", i, midiProperties);
+		
+		NSString *name = [midiProperties valueForKey:@"model"];
+		if ([name isEqualToString:modelToMatch] == FALSE)
+			continue;
+		
+		NSArray *entities = [midiProperties objectForKey:@"entities"];
+		if (entities != nil)
+		{
+			NSLog(@"entities");
+			for (NSDictionary *entity in entities)
+			{
+				NSLog(@"entity");
+				NSArray *sources = [entity objectForKey:@"sources"];
+				if (sources != nil)
+				{
+					for (NSDictionary *d in sources)
+					{
+						//NSLog(@"source: %@", [d objectForKey:@"uniqueID"]);
+						uniqueId = [[d objectForKey:@"uniqueID"] intValue];
+						NSLog(@"uniqueId found = %d", (int)uniqueId);
+					}
+				}
+			}
+		}
 	}
 	
 	
@@ -121,7 +149,7 @@ NSString *getDisplayName(MIDIObjectRef object)
 	CFStringRef name = nil;
 	if (noErr != MIDIObjectGetStringProperty(object, kMIDIPropertyDisplayName, &name))
 		return nil;
-	return (NSString *)name;
+	return (__bridge NSString *)name;
 }
 
 

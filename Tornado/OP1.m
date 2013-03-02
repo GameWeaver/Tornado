@@ -64,7 +64,7 @@ static OP1* _sharedMySingleton = nil;
 	if (self != nil)
 	{
 		//Change unique id for your device.
-		[[MidiManager instance] createMidiSessionWithUniqueId:1322036174];
+		[[MidiManager instance] findAndCreateOP1];
 		[self reset];
 	}
 	return self;
